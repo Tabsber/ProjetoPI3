@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado do Post</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef6ff;
+      color: #333;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #004c87;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .conteudo {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    strong {
+      color: #004c87;
+    }
+
+    span {
+      display: inline-block;
+      margin-top: 5px;
+      color: #555;
+    }
+
+    .explicacao {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>Informações do seu Post</h1>
+
+  <div class="conteudo" id="resultadoCompleto">
+    <p><strong>Carregando resposta gerada pelo ChatGPT...</strong></p>
+  </div>
+
+  <script>
+    const resultadoPost = sessionStorage.getItem('resultadoPost');
+
+    function formatarTexto(texto) {
+      return texto
+        .replace(/\n/g, '<br>')
+        .replace(/(Hook:|Problema:|Solução:|CTA:)/g, '<strong>$1</strong>');
+    }
+
+    if (resultadoPost) {
+      const container = document.getElementById('resultadoCompleto');
+      container.innerHTML = `<p>${formatarTexto(resultadoPost)}</p>`;
+    } else {
+      document.getElementById('resultadoCompleto').innerHTML = '<p><strong>Nenhuma resposta foi recebida da API.</strong></p>';
+    }
+  </script>
+</body>
+</html>
