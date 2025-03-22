@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Respostas dos Usuários</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #004c87;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #e0f0ff;
+      color: #004c87;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Respostas dos Usuários</h1>
+
+  <table id="tabelaRespostas">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Segmento</th>
+        <th>Produto</th>
+        <th>Público</th>
+        <th>Problema</th>
+        <th>Solução</th>
+        <th>Canal</th>
+        <th>Tipo</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados serão inseridos aqui via JS -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:3000/api/respostas')
+      .then(res => res.json())
+      .then(respostas => {
+        const tbody = document.querySelector('#tabelaRespostas tbody');
+        respostas.forEach(res => {
+          const linha = document.createElement('tr');
+          linha.innerHTML = `
+            <td>${res.nome || ''}</td>
+            <td>${res.email || ''}</td>
+            <td>${res.segmento || ''}</td>
+            <td>${res.produto || ''}</td>
+            <td>${res.publico || ''}</td>
+            <td>${res.problema || ''}</td>
+            <td>${res.solucao || ''}</td>
+            <td>${res.canal || ''}</td>
+            <td>${res.tipo || ''}</td>
+            <td>${new Date(res.recebidoEm).toLocaleString()}</td>
+          `;
+          tbody.appendChild(linha);
+        });
+      })
+      .catch(erro => {
+        document.body.innerHTML += '<p><strong>Erro ao carregar respostas.</strong></p>';
+        console.error('Erro:', erro);
+      });
+  </script>
+</body>
+</html>

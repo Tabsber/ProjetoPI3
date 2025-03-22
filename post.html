@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Resultado do Post</title>
+  <title>Post Gerado</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,22 +47,46 @@
       margin-bottom: 20px;
       font-style: italic;
     }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #004c87;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:focus, button:hover {
+      outline: 2px solid #002c5f;
+      background-color: #003366;
+    }
   </style>
 </head>
 <body>
-  <h1>Informações do seu Post</h1>
+  <h1 tabindex="0">Seu Post Gerado</h1>
 
-  <div class="conteudo" id="resultadoCompleto">
+  <div class="conteudo" id="resultadoCompleto" role="region" aria-live="polite">
     <p><strong>Carregando resposta gerada pelo ChatGPT...</strong></p>
   </div>
 
+  <button onclick="voltarParaHome()" aria-label="Voltar para a página inicial">Voltar para Home</button>
+
   <script>
+    function voltarParaHome() {
+      window.location.href = 'home.html';
+    }
+
     const resultadoPost = sessionStorage.getItem('resultadoPost');
 
     function formatarTexto(texto) {
       return texto
         .replace(/\n/g, '<br>')
-        .replace(/(Hook:|Problema:|Solução:|CTA:)/g, '<strong>$1</strong>');
+        .replace(/(Hook:|Problema:|Solu\u00e7\u00e3o:|CTA:)/g, '<strong>$1</strong>');
     }
 
     if (resultadoPost) {
@@ -74,3 +98,4 @@
   </script>
 </body>
 </html>
+
