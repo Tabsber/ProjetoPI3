@@ -8,11 +8,22 @@ app.use(cors());
 app.use(express.json());
 
 const caminhoArquivo = path.join(__dirname, 'respostas.json');
+const arquivoHome = path.join(__dirname, 'Home.html');
 
 // Cria o arquivo se não existir
 if (!fs.existsSync(caminhoArquivo)) {
   fs.writeFileSync(caminhoArquivo, '[]');
 }
+
+app.get('/', (req, res) => {
+  try {
+    const conteudo = fs.readFileSync(arquivoHome, 'utf8');
+    res.send(conteudo);
+  } catch (err) {
+    console.error('Error reading the file:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 // ROTA POST - Salvar nova resposta
 app.post('/api/respostas', (req, res) => {
